@@ -58,7 +58,7 @@ The middle of the box will be the new common vertex of all the triangles:
 
 If we follow the order of vertices as they were defined in the original polygon and we just insert the new coordinate as the last coordinate of the triangles, then we can guarantee that the normal vectors of the triangles will also point to the same direction as the original one did.
 
-The same normal vector can be used for of all the triangles. That is the vector pointing to the middle of the box. 
+The same normal vector can be used for of all the triangles: <br> Either the normal vector of the polygon if there was any, or the vector pointing to the middle of the bounding box. 
 
 ![](./images/obj2stl-Page-4.png)
 
