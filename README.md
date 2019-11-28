@@ -4,7 +4,6 @@
 
 1. Parsing OBJ into internal representation
 2. Transformation <br>
-    composition of:
    * User defined
    * Translate modell to Octant I.
 3. Triangulation
