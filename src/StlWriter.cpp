@@ -25,6 +25,9 @@ void StlWriter::WriteHeader(std::ostream& os) const
 {
     static const char header[80];
     os.write(header, sizeof(header));
+
+    uint32_t ntriangles = model_.GetTriangles().size();
+    os.write(reinterpret_cast<const char *>(&ntriangles), sizeof(uint32_t));
 }
 
 static void WriteCoord(std::ostream& os, const Coord3& coord);
@@ -35,10 +38,10 @@ void StlWriter::WriteBody(std::ostream& os) const
 
     for (auto tr : model_.GetTriangles())
     {
-        WriteCoord(os, tr.norm_);
-        WriteCoord(os, tr.v1_);
-        WriteCoord(os, tr.v2_);
-        WriteCoord(os, tr.v3_);
+        WriteCoord(os, tr.norm);
+        WriteCoord(os, tr.v1);
+        WriteCoord(os, tr.v2);
+        WriteCoord(os, tr.v3);
         os.write(attribute, sizeof(attribute));
     }
 }

@@ -7,9 +7,7 @@
 #include <string>
 #include <regex>
 #include <vector>
-#include <array>
 #include <stdexcept>
-
 
 void ObjReader::ReadFromFile(const std::string& fname)
 {
@@ -20,7 +18,7 @@ void ObjReader::ReadFromFile(const std::string& fname)
         file.close();
         return;
     }
-    throw new std::runtime_error("Cannot open file" + fname);
+    throw std::runtime_error("Cannot open file" + fname);
 }
 
 void ObjReader::ReadFromStream(std::istream& is)
@@ -45,19 +43,19 @@ void ObjReader::ParseLine(const std::string& line)
     std::smatch sm;
     if (std::regex_match(line, sm, rxPrefix))
     {
-        if (sm[2].str().compare("v") == 0 && std::regex_match(line.begin() + sm[1].length(), line.end(), sm, rxV))
+        if (sm[2].str() == "v" && std::regex_match(line.begin() + sm[1].length(), line.end(), sm, rxV))
         {
             AddVertex(std::stof(sm[1]), std::stof(sm[2]), std::stof(sm[3]));
         }
-        else if (sm[2].str().compare("vt") == 0 && std::regex_match(line.begin() + sm[1].length(), line.end(), sm, rxVT))
+        else if (sm[2].str() == "vt" && std::regex_match(line.begin() + sm[1].length(), line.end(), sm, rxVT))
         {
             AddVertexTexture(std::stof(sm[1]), std::stof(sm[2]));
         }
-        else if (sm[2].str().compare("vn") == 0 && std::regex_match(line.begin() + sm[1].length(), line.end(), sm, rxVN))
+        else if (sm[2].str() == "vn" && std::regex_match(line.begin() + sm[1].length(), line.end(), sm, rxVN))
         {
             AddVertexNorm(std::stof(sm[1]), std::stof(sm[2]), std::stof(sm[3]));
         }
-        else if (sm[2].str().compare("f") == 0)
+        else if (sm[2].str() == "f")
         {
             std::vector<FaceVertex> faceVertices;
 
@@ -90,7 +88,7 @@ void ObjReader::ParseLine(const std::string& line)
     }
 }
 
-void ObjReader::AddVertex(float x, float y, float z)
+void ObjReader::AddVertex(float x, float y, float z) const
 {
     model_.AddVertex(Coord3(x, y, z));
 }

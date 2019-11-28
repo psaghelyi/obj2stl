@@ -17,7 +17,7 @@
 void read(ObjModel& model)
 {
     ObjReader reader(model);
-    reader.ReadFromFile("c:\\Project\\obj2stl\\data\\box.obj");
+    reader.ReadFromFile("c:\\Project\\obj2stl\\data\\teapot.obj");
 }
 
 void write(const StlModel& model)

@@ -11,7 +11,6 @@
     <ClInclude Include="..\include\obj2stl\Converter.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Coord3.cpp" />
     <ClCompile Include="..\src\ObjReader.cpp" />
     <ClCompile Include="..\src\StlWriter.cpp" />
     <ClCompile Include="..\src\ObjModel.cpp" />

@@ -7,13 +7,10 @@
 
 struct Coord6
 {
-    Coord6(const Coord3& vt, const Coord3& vn) 
-        : x(vt.x), y(vt.y), z(vt.z), 
-          i(vn.x), j(vn.y), k(vn.z) 
-    {}
+    Coord6(const Coord3& vt, const Coord3& vn) : vt(vt), vn(vn) {}
 
-    float x, y, z;
-    float i, j, k;
+    Coord3 vt;
+    Coord3 vn;
 };
 
 class Converter
@@ -22,9 +19,12 @@ public:
     void Convert(const ObjModel& objModel, StlModel& stlModel);
 
 private:
-    std::vector<std::vector<Coord6>> faces_;    // list of faces -> list of coordinate pairs (vertex, norm)
+    std::vector<std::vector<Coord6>> polygons_;    // list of faces -> list of coordinate pairs (vertex, norm)
+    std::vector<std::vector<Coord3>> triangles_;
 
-    std::vector<StlTriangle> triangles_;
-
+    void CreatePolygonsWithNorms(const std::vector<FaceVertex>& faceVertices, const std::vector<Coord3>& objVertices, const std::vector<Coord3>& objNorms);
+    void CreateTrianglesWithNorms(const std::vector<Coord6>& poly);
 };
+
+
 

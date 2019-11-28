@@ -9,7 +9,7 @@ class StlModel
 public:
     const std::vector<StlTriangle>& GetTriangles() const { return triangles_; }
 
-    void AddTriangle(StlTriangle&& triangle);
+    void AddTriangle(const StlTriangle& triangle);
 
 private:
     std::vector<StlTriangle> triangles_;
