@@ -8,6 +8,7 @@
     <ClInclude Include="..\include\obj2stl\ObjModel.h" />
     <ClInclude Include="..\include\obj2stl\StlModel.h" />
     <ClInclude Include="..\include\obj2stl\StlTriangle.h" />
+    <ClInclude Include="..\include\obj2stl\Converter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Coord3.cpp" />
@@ -15,5 +16,6 @@
     <ClCompile Include="..\src\StlWriter.cpp" />
     <ClCompile Include="..\src\ObjModel.cpp" />
     <ClCompile Include="..\src\StlModel.cpp" />
+    <ClCompile Include="..\src\Converter.cpp" />
   </ItemGroup>
 </Project>

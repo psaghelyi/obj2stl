@@ -7,7 +7,7 @@
 class StlWriter
 {
 public:
-    StlWriter(StlModel& model) : model_(model) {}
+    StlWriter(const StlModel& model) : model_(model) {}
 
     void WriteToFile(const std::string& fname) const;
     void WriteToStream(std::ostream& os) const;

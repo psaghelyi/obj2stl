@@ -9,21 +9,38 @@
 
 #include "../include/obj2stl/ObjReader.h"
 #include "../include/obj2stl/StlWriter.h"
+#include "../include/obj2stl/Converter.h"
 
 #include <iostream>
 #include <exception>
 
+void read(ObjModel& model)
+{
+    ObjReader reader(model);
+    reader.ReadFromFile("c:\\Project\\obj2stl\\data\\box.obj");
+}
+
+void write(const StlModel& model)
+{
+    StlWriter writer(model);
+    writer.WriteToFile("c:\\Project\\obj2stl\\data\\box.stl");
+}
+
+void convert(const ObjModel& modelIn, StlModel& modelOut)
+{
+    Converter converter;
+    converter.Convert(modelIn, modelOut);
+}
+
 int main(int argc, const char * argv[]) {
   
     ObjModel objModel;
-    StlModel stlModel;
-    ObjReader reader(objModel);
-    StlWriter writer(stlModel);
-  
+    StlModel stlModel;    
+
     try {
-        //reader.ReadFromFile("/Users/psaghelyi/Project/obj2stl/data/teapot.obj");
-        reader.ReadFromFile("c:\\Project\\obj2stl\\data\\teapot.obj");
-        writer.WriteToFile("c:\\Project\\obj2stl\\data\\teapot.stl");
+        read(objModel);
+        convert(objModel, stlModel);
+        write(stlModel);
     }
     catch (std::exception & e)
     {

@@ -65,10 +65,10 @@ void ObjReader::ParseLine(const std::string& line)
             while (std::regex_search(s, sm, rxF))
             {
                 FaceVertex faceVertex;
-
-                std::istringstream tokenStream(s);
-                std::string token;
                 int* vi = faceVertex.Indices(), * pvi = vi;
+
+                std::istringstream tokenStream(sm[1].str());
+                std::string token;
                 while (std::getline(tokenStream, token, '/'))
                 {
                     if (token.length() > 0)
@@ -93,30 +93,20 @@ void ObjReader::ParseLine(const std::string& line)
 void ObjReader::AddVertex(float x, float y, float z)
 {
     model_.AddVertex(Coord3(x, y, z));
-    //std::cout << "v " << x << " " << y << " " << z << "\n";
 }
 
 void ObjReader::AddVertexTexture(float u, float v)
 {    
-    // not implemented
-    //std::cout << "vt " << u << " " << v << "\n";
+    // TODO: not used
 }
 
 void ObjReader::AddVertexNorm(float i, float j, float k)
 {
     model_.AddNorm(Coord3(i, j, k));
-    //std::cout << "vn " << i << " " << j << " " << k << "\n";
 }
 
 void ObjReader::AddFace(const std::vector<FaceVertex>& faceVertexIndices)
 {
     model_.AddFace(faceVertexIndices);
-
-    std::cout << "f ";
-    for (auto x : faceVertexIndices)
-    {
-        std::cout << x.vIndex() << "/" << x.vtIndex() << "/" << x.vnIndex() << " ";
-    }
-    std::cout << "\n";
 }
 
