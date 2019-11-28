@@ -1,21 +1,21 @@
 #pragma once
 
+#include "ObjModel.h"
+
 #include <string>
 #include <vector>
 #include <istream>
 
-#include "Model.h"
-
 class ObjReader
 {
 public:
-    ObjReader(Model& model) : model_(model) {}
+    ObjReader(ObjModel& model) : model_(model) {}
 
     void ReadFromFile(const std::string& fname);
     void ReadFromStream(std::istream& is);
 
 private:
-    Model& model_;
+    ObjModel& model_;
 
     void ParseLine(const std::string& line);
 

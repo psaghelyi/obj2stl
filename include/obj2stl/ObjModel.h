@@ -5,7 +5,7 @@
 #include "Coord3.h"
 #include "FaceVertex.h"
 
-class Model
+class ObjModel
 {
 public:
     const std::vector<Coord3>& GetVertices() const { return vertices_; }

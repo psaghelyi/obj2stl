@@ -8,14 +8,28 @@
 
 
 #include "../include/obj2stl/ObjReader.h"
+#include "../include/obj2stl/StlWriter.h"
+
+#include <iostream>
+#include <exception>
 
 int main(int argc, const char * argv[]) {
   
-    Model model;
-    ObjReader reader(model);
+    ObjModel objModel;
+    StlModel stlModel;
+    ObjReader reader(objModel);
+    StlWriter writer(stlModel);
   
-    //reader.ReadFromFile("/Users/psaghelyi/Project/obj2stl/data/teapot.obj");
-    reader.ReadFromFile("c:\\Project\\obj2stl\\data\\teapot.obj");
+    try {
+        //reader.ReadFromFile("/Users/psaghelyi/Project/obj2stl/data/teapot.obj");
+        reader.ReadFromFile("c:\\Project\\obj2stl\\data\\teapot.obj");
+        writer.WriteToFile("c:\\Project\\obj2stl\\data\\teapot.stl");
+    }
+    catch (std::exception & e)
+    {
+        std::cout << e.what() << "\n";
+        return -1;
+    }
     
     return 0;
 }

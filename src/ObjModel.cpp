@@ -1,20 +1,20 @@
-#include "../include/obj2stl/Model.h"
+#include "../include/obj2stl/ObjModel.h"
 #include "../include/obj2stl/FaceVertex.h"
 
 #include <stdexcept>
 
 
-void Model::AddVertex(Coord3&& v)
+void ObjModel::AddVertex(Coord3&& v)
 {
     vertices_.push_back(v);
 }
 
-void Model::AddNorm(Coord3&& n)
+void ObjModel::AddNorm(Coord3&& n)
 {
     norms_.push_back(n);
 }
 
-void Model::AddFace(const std::vector<FaceVertex>& face)
+void ObjModel::AddFace(const std::vector<FaceVertex>& face)
 {
     for (auto const& p : face)
     {

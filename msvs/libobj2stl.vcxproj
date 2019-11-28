@@ -21,13 +21,18 @@
   <ItemGroup>
     <ClInclude Include="..\include\obj2stl\Coord3.h" />
     <ClInclude Include="..\include\obj2stl\FaceVertex.h" />
-    <ClInclude Include="..\include\obj2stl\Model.h" />
+    <ClInclude Include="..\include\obj2stl\ObjModel.h" />
     <ClInclude Include="..\include\obj2stl\ObjReader.h" />
+    <ClInclude Include="..\include\obj2stl\StlModel.h" />
+    <ClInclude Include="..\include\obj2stl\StlTriangle.h" />
+    <ClInclude Include="..\include\obj2stl\StlWriter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Coord3.cpp" />
-    <ClCompile Include="..\src\Model.cpp" />
+    <ClCompile Include="..\src\ObjModel.cpp" />
     <ClCompile Include="..\src\ObjReader.cpp" />
+    <ClCompile Include="..\src\StlModel.cpp" />
+    <ClCompile Include="..\src\StlWriter.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
