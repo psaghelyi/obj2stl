@@ -7,15 +7,15 @@
 //
 
 
-#include "../include/obj2stl/ObjParser.h"
-
+#include "../include/obj2stl/ObjReader.h"
 
 int main(int argc, const char * argv[]) {
   
-  ObjParser objParser;
+    Model model;
+    ObjReader reader(model);
   
-  //objParser.ParseFile("/Users/psaghelyi/Project/obj2stl/data/teapot.obj");
-  objParser.ParseFile("c:\\Project\\obj2stl\\data\\teapot.obj");
+    //reader.ReadFromFile("/Users/psaghelyi/Project/obj2stl/data/teapot.obj");
+    reader.ReadFromFile("c:\\Project\\obj2stl\\data\\teapot.obj");
     
-  return 0;
+    return 0;
 }

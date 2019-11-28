@@ -2,15 +2,21 @@
 
 #include <string>
 #include <vector>
+#include <istream>
 
-struct FaceVertex;
+#include "Model.h"
 
-class ObjParser
+class ObjReader
 {
 public:
-    void ParseFile(const std::string& fname);
+    ObjReader(Model& model) : model_(model) {}
+
+    void ReadFromFile(const std::string& fname);
+    void ReadFromStream(std::istream& is);
 
 private:
+    Model& model_;
+
     void ParseLine(const std::string& line);
 
     void AddVertex(float x, float y, float z);

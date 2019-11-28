@@ -1,3 +1,6 @@
+#include "../include/obj2stl/ObjReader.h"
+#include "../include/obj2stl/FaceVertex.h"
+
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -5,40 +8,32 @@
 #include <regex>
 #include <vector>
 #include <array>
-
-#include "../include/obj2stl/ObjParser.h"
-
-struct FaceVertex
-{
-    FaceVertex() : indices{ 0,0,0 } {}
-
-    int& vIndex() { return indices[0]; }
-    int& vtIndex() { return indices[1]; }
-    int& vnIndex() { return indices[2]; }
-
-    int* Indices() { return indices; }
-
-private:
-    int  indices[3];
-};
+#include <stdexcept>
 
 
-void ObjParser::ParseFile(const std::string& fname)
+void ObjReader::ReadFromFile(const std::string& fname)
 {
     std::ifstream file(fname);
     if (file.is_open())
     {
-        std::string line;
-        while (getline(file, line))
-        {
-            ParseLine(line);
-            //std::cout << line << "\n";
-        }
+        ReadFromStream(file);
         file.close();
+        return;
+    }
+    throw new std::runtime_error("Cannot open file" + fname);
+}
+
+void ObjReader::ReadFromStream(std::istream& is)
+{
+    std::string line;
+    while (getline(is, line))
+    {
+        ParseLine(line);
+        //std::cout << line << "\n";
     }
 }
 
-void ObjParser::ParseLine(const std::string& line)
+void ObjReader::ParseLine(const std::string& line)
 {
     static const std::string rxCoordStr = "([-+]?[0-9]*.?[0-9]+(?:[eE][-+]?[0-9]+)?)";
     static const std::regex rxV = std::regex("^(?:\\s*)" + rxCoordStr + "(?:\\s+)" + rxCoordStr + "(?:\\s+)" + rxCoordStr + "(?:.*)");
@@ -95,23 +90,28 @@ void ObjParser::ParseLine(const std::string& line)
     }
 }
 
-void ObjParser::AddVertex(float x, float y, float z)
+void ObjReader::AddVertex(float x, float y, float z)
 {
-    std::cout << "v " << x << " " << y << " " << z << "\n";
+    model_.AddVertex(Coord3(x, y, z));
+    //std::cout << "v " << x << " " << y << " " << z << "\n";
 }
 
-void ObjParser::AddVertexTexture(float u, float v)
-{
-    std::cout << "vt " << u << " " << v << "\n";
+void ObjReader::AddVertexTexture(float u, float v)
+{    
+    // not implemented
+    //std::cout << "vt " << u << " " << v << "\n";
 }
 
-void ObjParser::AddVertexNorm(float i, float j, float k)
+void ObjReader::AddVertexNorm(float i, float j, float k)
 {
-    std::cout << "vn " << i << " " << j << " " << k << "\n";
+    model_.AddNorm(Coord3(i, j, k));
+    //std::cout << "vn " << i << " " << j << " " << k << "\n";
 }
 
-void ObjParser::AddFace(const std::vector<FaceVertex>& faceVertexIndices)
+void ObjReader::AddFace(const std::vector<FaceVertex>& faceVertexIndices)
 {
+    model_.AddFace(faceVertexIndices);
+
     std::cout << "f ";
     for (auto x : faceVertexIndices)
     {
