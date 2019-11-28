@@ -18,8 +18,13 @@ struct Coord3
 
     Coord3 Normalize() const
     {
-        float length = std::sqrt(x * x + y * y + z * z);
-        return *this / length;
+        float length = GetLength();
+        return length > FLT_MIN ? *this / length : Coord3();  // do not divide by zero
+    }
+
+    float GetLength() const
+    {
+        return std::sqrt(x * x + y * y + z * z);
     }
 
     static Coord3 CrossProduct(const Coord3& a, const Coord3& b)
