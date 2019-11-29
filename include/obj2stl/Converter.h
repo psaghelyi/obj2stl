@@ -8,9 +8,8 @@
 class Converter
 {
 public:
+    Converter(Coord3TR trMatix) : trMatix_(trMatix) {}
     void Convert(const ObjModel& objModel, StlModel& stlModel);
-
-    Coord3TR& GetTrMatrix() { return trMatix_ ; }
 
 private:
     std::vector<std::vector<Coord3N>> polygons_;    // list of faces -> list of coordinate pairs (vertex, norm)
@@ -19,7 +18,7 @@ private:
     Coord3TR trMatix_;
 
     void CreatePolygonsWithNorms(const std::vector<FaceVertex>& faceVertices, const std::vector<Coord3>& objVertices, const std::vector<Coord3>& objNorms);
-    void CreateTrianglesWithNorms(const std::vector<Coord3N>& poly);
+    void CreateTrianglesWithNormsAndTransform(const std::vector<Coord3N>& poly);
 };
 
 

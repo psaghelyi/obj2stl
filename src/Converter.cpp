@@ -14,16 +14,7 @@ void Converter::Convert(const ObjModel& objModel, StlModel& stlModel)
     // convert polygons to triangles
     for (const auto& poly : polygons_)
     {
-        CreateTrianglesWithNorms(poly);
-    }
-
-    // Transform model
-    for (auto& t : triangles_)
-    {
-        Coord3TR tr;
-        t[0] = tr.ApplyTransformation(t[0]);
-        t[1] = tr.ApplyTransformation(t[1]);
-        t[2] = tr.ApplyTransformation(t[2]);
+        CreateTrianglesWithNormsAndTransform(poly);
     }
 
     // sort triangles by z axis (not strictly enforced)
@@ -49,15 +40,15 @@ void Converter::CreatePolygonsWithNorms(const std::vector<FaceVertex>& faceVerti
     std::vector<Coord3N> face;
     for (auto const& v : faceVertices)
     {
-        const Coord3& vt = v.vIndex() ? objVertices[v.vIndex() - 1] : Coord3();
-        const Coord3& vn = v.vnIndex() ? objNorms[v.vnIndex() - 1] : Coord3();
+        const Coord3& vt = v.vIndex() ? objVertices[(size_t)v.vIndex() - 1] : Coord3();
+        const Coord3& vn = v.vnIndex() ? objNorms[(size_t)v.vnIndex() - 1] : Coord3();
 
         face.push_back({ vt, vn });
     }
     polygons_.push_back(face);
 }
 
-void Converter::CreateTrianglesWithNorms(const std::vector<Coord3N>& poly)
+void Converter::CreateTrianglesWithNormsAndTransform(const std::vector<Coord3N>& poly)
 {
     if (poly.size() < 3)
     {
@@ -67,16 +58,22 @@ void Converter::CreateTrianglesWithNorms(const std::vector<Coord3N>& poly)
     // traverse polygon and make triangles
     for (std::vector<Coord3N>::const_iterator it = poly.begin(); it+2 != poly.end(); ++it)
     {
-        auto p1 = *(it+1);
-        auto p2 = *(it+2);
+        const Coord3N& p0 = *poly.begin();
+        const Coord3N& p1 = *(it+1);
+        const Coord3N& p2 = *(it+2);
 
-        std::vector<Coord3> triangle{ poly.begin()->vt, p1.vt, p2.vt };
+        std::vector<Coord3> triangle
+        { 
+            trMatix_.ApplyTransformation(p0.vt),
+            trMatix_.ApplyTransformation(p1.vt),
+            trMatix_.ApplyTransformation(p2.vt)
+        };
 
         // if OBJ contained normal vectors on vertices, then try to use an average
-        auto vn = ((poly.begin()->vn + p1.vn + p2.vn) / 3.F);
+        Coord3 vn = ((poly.begin()->vn + p1.vn + p2.vn) / 3.F);
         if (vn.GetLength() > FLT_MIN)
-        {
-            triangle.push_back(vn.Normalize());
+        {            
+            triangle.push_back(trMatix_.ApplyTransformation(vn).Normalize());
         }
 
         triangles_.push_back(triangle);
