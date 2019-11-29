@@ -63,7 +63,7 @@ void ObjReader::ParseLine(const std::string& line)
             while (std::regex_search(s, sm, rxF))
             {
                 FaceVertex faceVertex;
-                int* vi = faceVertex.Indices(), * pvi = vi;
+                int* vi = faceVertex.Indices(), *pvi = vi;
 
                 std::istringstream tokenStream(sm[1].str());
                 std::string token;
@@ -74,7 +74,7 @@ void ObjReader::ParseLine(const std::string& line)
                         *pvi = std::stoi(token);
                         if (*pvi < 0) // relative vertext indices
                         {
-                            *pvi += pvi - vi == 0 ? model_.GetVertices().size() : pvi - vi == 2 ? model_.GetNorms().size() : 0;
+                            *pvi += (int)(pvi - vi == 0 ? model_.GetVertices().size() : pvi - vi == 2 ? model_.GetNorms().size() : 0) + 1;
                         }
                     }
                     if (++pvi - vi > 3) // check for overrun

@@ -11,8 +11,8 @@ struct Coord3
     Coord3(float x, float y, float z) : x(x), y(y), z(z) {}
     Coord3() : Coord3(0., 0., 0.) {}
 
-    Coord3 operator+(const Coord3& other) const { return {x + other.x, y + other.y,z + other.z}; }
-    Coord3 operator-(const Coord3& other) const { return {x - other.x, y - other.y,z - other.z}; }
+    Coord3 operator+(const Coord3& other) const { return {x + other.x, y + other.y, z + other.z}; }
+    Coord3 operator-(const Coord3& other) const { return {x - other.x, y - other.y, z - other.z}; }
     Coord3 operator*(float f) const { return {x * f, y * f, z * f}; }
     Coord3 operator/(float f) const { return {x / f, y / f, z / f}; }
 

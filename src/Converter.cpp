@@ -16,15 +16,16 @@ void Converter::Convert(const ObjModel& objModel, StlModel& stlModel)
         CreateTrianglesWithNorms(poly);
     }
 
+    //// sort triangles by Z axis
+    //triangles_.sor
+
     // move triangles to stl
     for (const auto& t : triangles_)
     {
         // use the calculated normal vector or generate one which should be perpendicular to the triangle plane
         Coord3 nv = t.size() > 3 ? t[3] : Coord3::CrossProduct(t[1] - t[0], t[2] - t[0]).Normalize();
 
-        StlTriangle triangle(t[0], t[1], t[2], nv);
-
-        stlModel.AddTriangle(triangle);
+        stlModel.AddTriangle({ t[0], t[1], t[2], nv });
     }
 }
 
@@ -47,25 +48,23 @@ void Converter::CreateTrianglesWithNorms(const std::vector<Coord3N>& poly)
     if (poly.size() < 3)
     {
         throw std::runtime_error("Polygon has less than 3 vertices");
-    }
-    if (poly.size() == 3)
+    };   
+
+    // traverse polygon and make triangles
+    for (std::vector<Coord3N>::const_iterator it = poly.begin(); it+2 != poly.end(); ++it)
     {
-        auto p1 = Coord3(poly[0].vt.x, poly[0].vt.y, poly[0].vt.z);
-        auto p2 = Coord3(poly[1].vt.x, poly[1].vt.y, poly[1].vt.z);
-        auto p3 = Coord3(poly[2].vt.x, poly[2].vt.y, poly[2].vt.z);
+        auto p1 = *(it+1);
+        auto p2 = *(it+2);
 
-        std::vector<Coord3> triangle {p1, p2 ,p3};
+        std::vector<Coord3> triangle{ poly.begin()->vt, p1.vt, p2.vt };
 
-        // if OBJ contained normal vectors, then try to use an average
-        auto vn = ((poly[0].vn + poly[1].vn + poly[2].vn) / 3.F).Normalize();
+        // if OBJ contained normal vectors on vertices, then try to use an average
+        auto vn = ((poly.begin()->vn + p1.vn + p2.vn) / 3.F);
         if (vn.GetLength() > FLT_MIN)
         {
-            triangle.push_back(vn);
+            triangle.push_back(vn.Normalize());
         }
 
         triangles_.push_back(triangle);
-        return;
     }
-
-
 }

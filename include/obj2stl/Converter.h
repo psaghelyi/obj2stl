@@ -24,6 +24,10 @@ private:
 
     void CreatePolygonsWithNorms(const std::vector<FaceVertex>& faceVertices, const std::vector<Coord3>& objVertices, const std::vector<Coord3>& objNorms);
     void CreateTrianglesWithNorms(const std::vector<Coord3N>& poly);
+
+    void TriangleFrom3Vertices(const std::vector<Coord3N>& poly);
+    void TriangleFrom4Vertices(const std::vector<Coord3N>& poly);
+    void TriangleFromMoreVertices(const std::vector<Coord3N>& poly);
 };
 
 
