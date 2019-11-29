@@ -1,5 +1,6 @@
 #include "../include/obj2stl/Converter.h"
 #include <stdexcept>
+#include <algorithm>
 
 
 void Converter::Convert(const ObjModel& objModel, StlModel& stlModel)
@@ -16,8 +17,12 @@ void Converter::Convert(const ObjModel& objModel, StlModel& stlModel)
         CreateTrianglesWithNorms(poly);
     }
 
-    //// sort triangles by Z axis
-    //triangles_.sor
+    // sort triangles by z axis (not strictly enforced)
+    std::sort(triangles_.begin(), triangles_.end(),
+        [](const std::vector<Coord3>& a, const std::vector<Coord3>& b) -> bool
+        {
+            return std::min({ a[0].z, a[1].z, a[2].z }) > std::min({ b[0].z, b[1].z, b[2].z });
+        });
 
     // move triangles to stl
     for (const auto& t : triangles_)
