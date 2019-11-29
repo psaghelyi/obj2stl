@@ -1,7 +1,7 @@
 #include "../include/obj2stl/Converter.h"
 #include <stdexcept>
 #include <algorithm>
-
+#include <cfloat>
 
 void Converter::Convert(const ObjModel& objModel, StlModel& stlModel)
 {

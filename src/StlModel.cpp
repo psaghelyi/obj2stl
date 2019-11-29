@@ -1,4 +1,4 @@
-#include "..\include\obj2stl\StlModel.h"
+#include "../include/obj2stl/StlModel.h"
 
 void StlModel::AddTriangle(const StlTriangle& triangle)
 {

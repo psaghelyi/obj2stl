@@ -23,7 +23,7 @@ void StlWriter::WriteToStream(std::ostream& os) const
 
 void StlWriter::WriteHeader(std::ostream& os) const
 {
-    static const char header[80];
+    static const char header[80] = { 0 };
     os.write(header, sizeof(header));
 
     uint32_t ntriangles = model_.GetTriangles().size();
@@ -34,7 +34,7 @@ static void WriteCoord(std::ostream& os, const Coord3& coord);
 
 void StlWriter::WriteBody(std::ostream& os) const
 {
-    static const char attribute[2];
+    static const char attribute[2] = {0};
 
     for (auto tr : model_.GetTriangles())
     {

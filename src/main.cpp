@@ -30,8 +30,8 @@ int parsearg(int argc, const char* argv[], std::string& fname, Coord3TR& tr)
 {
     if (argc == 1)
     {
-        std::cout << "Usage:\n";
-        std::cout << argv[0] << " <OBJ file> [1,0,0;0,1,0;0,0,1]";
+        std::cout << "\nUsage:\n";
+        std::cout << argv[0] << " <OBJ file> [1,0,0;0,1,0;0,0,1]\n";
         return 1;
     }
     fname = argv[1];
