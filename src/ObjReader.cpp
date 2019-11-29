@@ -37,7 +37,7 @@ void ObjReader::ParseLine(const std::string& line)
     static const std::regex rxV = std::regex("^(?:\\s*)" + rxCoordStr + "(?:\\s+)" + rxCoordStr + "(?:\\s+)" + rxCoordStr + "(?:.*)");
     static const std::regex rxVT = std::regex("^(?:\\s*)" + rxCoordStr + "(?:\\s+)" + rxCoordStr + "(?:.*)");
     static const std::regex rxVN = std::regex("^(?:\\s*)" + rxCoordStr + "(?:\\s+)" + rxCoordStr + "(?:\\s+)" + rxCoordStr + "(?:.*)");
-    static const std::regex rxF = std::regex("(?:\\s*)((?:[0-9]+)(?:/[0-9]*)*)");  // 'v_ind' or 'v_ind/vt_ind' or 'v_ind/vt_ind/vn_ind' or 'v_ind//vn_ind'
+    static const std::regex rxF = std::regex("(?:\\s*)((?:[-+]?[0-9]+)(?:/[-+]?[0-9]*)*)");  // 'v_ind' or 'v_ind/vt_ind' or 'v_ind/vt_ind/vn_ind' or 'v_ind//vn_ind'
     static const std::regex rxPrefix = std::regex("^(?:((?:\\s*)(f|v(?:n|t)?))\\s.*)"); // g1:prefix, g2:f|v|vn|vt
 
     std::smatch sm;
@@ -72,9 +72,14 @@ void ObjReader::ParseLine(const std::string& line)
                     if (token.length() > 0)
                     {
                         *pvi = std::stoi(token);
+                        if (*pvi < 0) // relative vertext indices
+                        {
+                            *pvi += pvi - vi == 0 ? model_.GetVertices().size() : pvi - vi == 2 ? model_.GetNorms().size() : 0;
+                        }
                     }
                     if (++pvi - vi > 3) // check for overrun
                     {
+                        std::cerr << "warn: face vertex contains more than 3 elements";
                         break;
                     }
                 }
