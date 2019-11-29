@@ -43,23 +43,9 @@ The actual transformation is the compositon of all the transformation matrices i
 
 **"The vertex rule states that each triangle must share two vertices with its neighboring triangles."**
 
-OBJ file format does not guarantee that all the faces are triangles. Because we can assume that the faces are convex and planar, then we can apply the following steps to split the face into triangles.
+OBJ file format does not guarantee that all the faces are triangles. Because we can assume that the faces are convex and planar, then we apply the following steps to split the face into triangles.
 
 ![](./images/obj2stl-Page-1.png)
-
-Find the boundary box:
-
-![](./images/obj2stl-Page-2.png)
-
-The middle of the box will be the new common vertex of all the triangles:
-
-![](./images/obj2stl-Page-3.png)
-
-If we follow the order of vertices as they were defined in the original polygon and we just insert the new coordinate as the last coordinate of the triangles, then we can guarantee that the normal vectors of the triangles will also point to the same direction as the original one did.
-
-The same normal vector can be used for of all the triangles: <br> either the average of the normal vectors of the polygon (if there was any), <br> or the normalized vector pointing to the middle of the bounding box. 
-
-![](./images/obj2stl-Page-4.png)
 
 ## 4. Vertex Sorting
 
