@@ -2,7 +2,7 @@
 
 ## Usage
 
-obj2stl data/teapot.obj 1,0,0;0,1,0;0,0,1
+`obj2stl data/teapot.obj 1,0,0;0,1,0;0,0,1`
 
 - The transformation matrix is optional. Do not put spaces between the numbers and punctuations.
 - The STL file will be placed next to the OBJ.

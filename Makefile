@@ -1,25 +1,25 @@
 all: obj2stl
 
 obj2stl: main.o libobj2stl.a
-	g++ -o obj2stl main.o libobj2stl.a -lm
+	g++ -std=c++14 -o obj2stl main.o libobj2stl.a -lm
 
 main.o: src/main.cpp
-	g++ -O2 -c src/main.cpp
+	g++ -std=c++14 -O2 -c src/main.cpp
 
 ObjModel.o: src/ObjModel.cpp include/obj2stl/ObjModel.h
-	g++ -O2 -c src/ObjModel.cpp 
+	g++ -std=c++14 -O2 -c src/ObjModel.cpp 
 
 ObjReader.o: src/ObjReader.cpp include/obj2stl/ObjReader.h
-	g++ -O2 -c src/ObjReader.cpp
+	g++ -std=c++14 -O2 -c src/ObjReader.cpp
 
 StlModel.o: src/StlModel.cpp include/obj2stl/StlModel.h
-	g++ -O2 -c src/StlModel.cpp
+	g++ -std=c++14 -O2 -c src/StlModel.cpp
 
 StlWriter.o: src/StlWriter.cpp include/obj2stl/StlWriter.h
-	g++ -O2 -c src/StlWriter.cpp
+	g++ -std=c++14 -O2 -c src/StlWriter.cpp
 	
 Converter.o: src/Converter.cpp include/obj2stl/Converter.h
-	g++ -O2 -c src/Converter.cpp	
+	g++ -std=c++14 -O2 -c src/Converter.cpp	
 
 libobj2stl.a: ObjModel.o ObjReader.o StlModel.o StlWriter.o Converter.o
 	ar rcs libobj2stl.a ObjModel.o ObjReader.o StlModel.o StlWriter.o Converter.o
