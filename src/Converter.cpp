@@ -17,6 +17,15 @@ void Converter::Convert(const ObjModel& objModel, StlModel& stlModel)
         CreateTrianglesWithNorms(poly);
     }
 
+    // Transform model
+    for (auto& t : triangles_)
+    {
+        Coord3TR tr;
+        t[0] = tr.ApplyTransformation(t[0]);
+        t[1] = tr.ApplyTransformation(t[1]);
+        t[2] = tr.ApplyTransformation(t[2]);
+    }
+
     // sort triangles by z axis (not strictly enforced)
     std::sort(triangles_.begin(), triangles_.end(),
         [](const std::vector<Coord3>& a, const std::vector<Coord3>& b) -> bool

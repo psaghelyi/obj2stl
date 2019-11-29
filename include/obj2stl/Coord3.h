@@ -36,3 +36,30 @@ struct Coord3
         return {x, y, z};
     }
 };
+
+struct Coord3N
+{
+    Coord3N(const Coord3& vt, const Coord3& vn) : vt(vt), vn(vn) {}
+
+    Coord3 vt;
+    Coord3 vn;
+};
+
+struct Coord3TR
+{
+    Coord3TR(const Coord3& tr1, const Coord3& tr2, const Coord3& tr3) : c1(tr1), c2(tr2), c3(tr3) {}
+    Coord3TR() : c1{ 1,0,0 }, c2{ 0,1,0 }, c3{ 0,0,1 } {}
+
+    Coord3 c1;
+    Coord3 c2;
+    Coord3 c3;
+
+    Coord3 ApplyTransformation(const Coord3& p) const
+    {
+        float x = p.x * c1.x + p.y * c2.x + p.z * c3.x;
+        float y = p.x * c1.y + p.y * c2.y + p.z * c3.y;
+        float z = p.z * c1.z + p.y * c2.z + p.z * c3.z;
+
+        return { x, y, z };
+    }
+};
