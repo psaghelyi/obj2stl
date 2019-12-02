@@ -59,7 +59,7 @@ struct Coord3TR
     {
         float x = p.x * c1.x + p.y * c2.x + p.z * c3.x;
         float y = p.x * c1.y + p.y * c2.y + p.z * c3.y;
-        float z = p.z * c1.z + p.y * c2.z + p.z * c3.z;
+        float z = p.x * c1.z + p.y * c2.z + p.z * c3.z;
 
         return { x, y, z };
     }
