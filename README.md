@@ -1,5 +1,14 @@
 # obj2stl
 
+## Build
+
+```
+mkdir build
+cd build
+cmake ..
+make
+```
+
 ## Usage
 
 `obj2stl data/teapot.obj 1,0,0;0,1,0;0,0,1`

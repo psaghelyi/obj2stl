@@ -1,5 +1,5 @@
-#include "../include/obj2stl/ObjModel.h"
-#include "../include/obj2stl/FaceVertex.h"
+#include "ObjModel.h"
+#include "FaceVertex.h"
 
 #include <stdexcept>
 

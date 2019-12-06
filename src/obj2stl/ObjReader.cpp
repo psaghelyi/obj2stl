@@ -1,5 +1,5 @@
-#include "../include/obj2stl/ObjReader.h"
-#include "../include/obj2stl/FaceVertex.h"
+#include "ObjReader.h"
+#include "FaceVertex.h"
 
 #include <iostream>
 #include <sstream>

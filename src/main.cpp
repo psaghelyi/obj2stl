@@ -1,6 +1,6 @@
-#include "../include/obj2stl/ObjReader.h"
-#include "../include/obj2stl/StlWriter.h"
-#include "../include/obj2stl/Converter.h"
+#include "ObjReader.h"
+#include "StlWriter.h"
+#include "Converter.h"
 
 #include <iostream>
 #include <exception>

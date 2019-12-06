@@ -1,4 +1,4 @@
-#include "../include/obj2stl/Converter.h"
+#include "Converter.h"
 #include <stdexcept>
 #include <algorithm>
 #include <cfloat>

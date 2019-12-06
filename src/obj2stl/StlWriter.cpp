@@ -1,4 +1,4 @@
-#include "../include/obj2stl/StlWriter.h"
+#include "StlWriter.h"
 
 #include <fstream>
 
