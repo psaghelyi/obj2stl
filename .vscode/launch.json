@@ -4,23 +4,17 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
         {
             "name": "(lldb) Launch",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/obj2stl",
-            "args": ["${workspaceFolder}/data/cube.obj"],
+            "args": ["${workspaceFolder}/data/box.obj"],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,
             "MIMode": "lldb",
-            "logging": {
-                "trace": true,
-                "traceResponse": true,
-                "engineLogging": true
-            }
         }
     ]
 }

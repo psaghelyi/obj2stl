@@ -7,6 +7,10 @@
 void ObjModel::AddVertex(Coord3&& v)
 {
     vertices_.push_back(v);
+    
+    if (v.x < coordMin_.x) coordMin_.x = v.x;
+    if (v.y < coordMin_.y) coordMin_.y = v.y;
+    if (v.z < coordMin_.z) coordMin_.z = v.z; 
 }
 
 void ObjModel::AddNorm(Coord3&& n)

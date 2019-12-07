@@ -3,15 +3,17 @@ project(obj2stl VERSION 1.0.0)
 
 set (CMAKE_CXX_STANDARD 14)
 
+file(GLOB_RECURSE source_files
+    "include/obj2stl/*.h"
+    "src/obj2stl/*.cpp"
+)
+
+add_library(obj2stl ${source_files})
+
 include_directories(include/obj2stl)
 
-file(GLOB source_files
-            "include/obj2stl/*.h"
-            "src/obj2stl/*.cpp"
-    )
+add_executable(obj2stl-exe src/main.cpp)
 
-add_library(libobj2stl ${source_files})
+target_link_libraries(obj2stl-exe PRIVATE obj2stl)
 
-add_executable(obj2stl src/main.cpp)
-
-target_link_libraries(obj2stl PRIVATE libobj2stl)
+set_target_properties(obj2stl-exe PROPERTIES OUTPUT_NAME obj2stl)

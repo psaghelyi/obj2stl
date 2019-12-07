@@ -74,7 +74,7 @@ void ObjReader::ParseLine(const std::string& line)
                         *pvi = std::stoi(token);
                         if (*pvi < 0) // relative vertext indices
                         {
-                            *pvi += (int)(pvi - vi == 0 ? model_.GetVertices().size() : pvi - vi == 2 ? model_.GetNorms().size() : 0) + 1;
+                            *pvi += static_cast<int>(pvi - vi == 0 ? model_.GetVertices().size() : pvi - vi == 2 ? model_.GetNorms().size() : 0) + 1;
                         }
                     }
                     if (++pvi - vi > 3) // check for overrun

@@ -8,13 +8,14 @@ void Converter::Convert(const ObjModel& objModel, StlModel& stlModel)
     // collect coordinates for polygon faces
     for (const auto& f : objModel.GetFaces())
     {
-        CreatePolygonsWithNorms(f, objModel.GetVertices(), objModel.GetNorms());        
+        CreatePolygonsWithNorms(f, objModel.GetVertices(), objModel.GetNorms());
     }
 
     // convert polygons to triangles
     for (const auto& poly : polygons_)
     {
-        CreateTrianglesWithNormsAndTransform(poly);
+        Coord3 translate = trMatix_.ApplyTransformation(objModel.GetCoordMin());
+        CreateTrianglesWithNormsAndTransform(poly, translate);
     }
 
     // sort triangles by z axis (not strictly enforced)
@@ -40,15 +41,15 @@ void Converter::CreatePolygonsWithNorms(const std::vector<FaceVertex>& faceVerti
     std::vector<Coord3N> face;
     for (auto const& v : faceVertices)
     {
-        const Coord3& vt = v.vIndex() ? objVertices[(size_t)v.vIndex() - 1] : Coord3();
-        const Coord3& vn = v.vnIndex() ? objNorms[(size_t)v.vnIndex() - 1] : Coord3();
+        const Coord3& vt = v.vIndex() ? objVertices[static_cast<size_t>(v.vIndex() - 1)] : Coord3();
+        const Coord3& vn = v.vnIndex() ? objNorms[static_cast<size_t>(v.vnIndex() - 1)] : Coord3();
 
         face.push_back({ vt, vn });
     }
     polygons_.push_back(face);
 }
 
-void Converter::CreateTrianglesWithNormsAndTransform(const std::vector<Coord3N>& poly)
+void Converter::CreateTrianglesWithNormsAndTransform(const std::vector<Coord3N>& poly, const Coord3& translate)
 {
     if (poly.size() < 3)
     {
@@ -64,9 +65,9 @@ void Converter::CreateTrianglesWithNormsAndTransform(const std::vector<Coord3N>&
 
         std::vector<Coord3> triangle
         { 
-            trMatix_.ApplyTransformation(p0.vt),
-            trMatix_.ApplyTransformation(p1.vt),
-            trMatix_.ApplyTransformation(p2.vt)
+            trMatix_.ApplyTransformation(p0.vt - translate),
+            trMatix_.ApplyTransformation(p1.vt - translate),
+            trMatix_.ApplyTransformation(p2.vt - translate)
         };
 
         // if OBJ contained normal vectors on vertices, then try to use an average

@@ -18,7 +18,7 @@ private:
     Coord3TR trMatix_;
 
     void CreatePolygonsWithNorms(const std::vector<FaceVertex>& faceVertices, const std::vector<Coord3>& objVertices, const std::vector<Coord3>& objNorms);
-    void CreateTrianglesWithNormsAndTransform(const std::vector<Coord3N>& poly);
+    void CreateTrianglesWithNormsAndTransform(const std::vector<Coord3N>& poly, const Coord3& translate);
 };
 
 
