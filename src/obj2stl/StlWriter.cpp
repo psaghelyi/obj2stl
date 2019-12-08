@@ -12,7 +12,7 @@ void StlWriter::WriteToFile(const std::string& fname) const
         ofs.close();
         return;
     }
-    throw new std::runtime_error("Cannot open file" + fname);
+    throw new std::runtime_error("Cannot open file: " + fname);
 }
 
 void StlWriter::WriteToStream(std::ostream& os) const

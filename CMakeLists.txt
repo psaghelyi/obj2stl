@@ -17,3 +17,8 @@ add_executable(obj2stl-exe src/main.cpp)
 target_link_libraries(obj2stl-exe PRIVATE obj2stl)
 
 set_target_properties(obj2stl-exe PROPERTIES OUTPUT_NAME obj2stl)
+
+
+enable_testing()
+
+add_test(NAME test1 COMMAND obj2stl ${CMAKE_SOURCE_DIR}/data/box.obj -o -)

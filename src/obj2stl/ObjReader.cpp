@@ -18,7 +18,7 @@ void ObjReader::ReadFromFile(const std::string& fname)
         file.close();
         return;
     }
-    throw std::runtime_error("Cannot open file" + fname);
+    throw std::runtime_error("Cannot open file: " + fname);
 }
 
 void ObjReader::ReadFromStream(std::istream& is)
