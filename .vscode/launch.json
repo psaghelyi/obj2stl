@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/obj2stl",
-            "args": ["${workspaceFolder}/data/box.obj"],
+            "args": ["${workspaceFolder}/data/box.obj","-t 1,0,0;0,1,0;0,0,1"],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
             "environment": [],
