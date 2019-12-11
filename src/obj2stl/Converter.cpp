@@ -20,7 +20,7 @@ void Converter::Convert(const ObjModel& objModel, StlModel& stlModel)
 
     // sort triangles by z axis (not strictly enforced)
     std::sort(triangles_.begin(), triangles_.end(),
-        [](const std::vector<Coord3>& a, const std::vector<Coord3>& b) -> bool
+        [](const std::array<Coord3, 3>& a, const std::array<Coord3, 3>& b) -> bool
         {
             return std::min({ a[0].z, a[1].z, a[2].z }) > std::min({ b[0].z, b[1].z, b[2].z });
         });
@@ -28,8 +28,8 @@ void Converter::Convert(const ObjModel& objModel, StlModel& stlModel)
     // move triangles to stl
     for (const auto& t : triangles_)
     {
-        // use the calculated normal vector or generate one which should be perpendicular to the triangle plane
-        Coord3 nv = t.size() > 3 ? t[3] : Coord3::CrossProduct(t[1] - t[0], t[2] - t[0]).Normalize();
+        // generate normal which should be perpendicular to the triangle plane
+        Coord3 nv = Coord3::CrossProduct(t[1] - t[0], t[2] - t[0]).Normalize();
 
         stlModel.AddTriangle({ t[0], t[1], t[2], nv });
     }
@@ -63,19 +63,12 @@ void Converter::CreateTrianglesWithNormsAndTransform(const std::vector<Coord3N>&
         const Coord3N& p1 = *(it+1);
         const Coord3N& p2 = *(it+2);
 
-        std::vector<Coord3> triangle
+        std::array<Coord3, 3> triangle
         { 
             trMatix_.ApplyTransformation(p0.vt - translate),
             trMatix_.ApplyTransformation(p1.vt - translate),
             trMatix_.ApplyTransformation(p2.vt - translate)
         };
-
-        // if OBJ contained normal vectors on vertices, then try to use an average
-        Coord3 vn = ((poly.begin()->vn + p1.vn + p2.vn) / 3.F);
-        if (vn.GetLength() > FLT_MIN)
-        {            
-            triangle.push_back(trMatix_.ApplyTransformation(vn).Normalize());
-        }
 
         triangles_.push_back(triangle);
     }

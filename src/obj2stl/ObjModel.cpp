@@ -4,7 +4,7 @@
 #include <stdexcept>
 
 
-void ObjModel::AddVertex(Coord3&& v)
+void ObjModel::AddVertex(const Coord3& v)
 {
     vertices_.push_back(v);
     
@@ -13,7 +13,7 @@ void ObjModel::AddVertex(Coord3&& v)
     if (v.z < coordMin_.z) coordMin_.z = v.z; 
 }
 
-void ObjModel::AddNorm(Coord3&& n)
+void ObjModel::AddNorm(const Coord3& n)
 {
     norms_.push_back(n);
 }

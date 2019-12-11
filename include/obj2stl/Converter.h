@@ -4,6 +4,7 @@
 #include "StlModel.h"
 
 #include <vector>
+#include <array>
 
 class Converter
 {
@@ -13,7 +14,7 @@ public:
 
 private:
     std::vector<std::vector<Coord3N>> polygons_;    // list of faces -> list of coordinate pairs (vertex, norm)
-    std::vector<std::vector<Coord3>> triangles_;  // list of faces -> 3 * coordinates + 1 optional normal vector
+    std::vector<std::array<Coord3,3>> triangles_;  // list of faces -> 3 * coordinates
 
     Coord3TR trMatix_;
 

@@ -14,8 +14,8 @@ public:
 
     const Coord3& GetCoordMin() const { return coordMin_; }
 
-    void AddVertex(Coord3&& v);
-    void AddNorm(Coord3&& n);
+    void AddVertex(const Coord3& v);
+    void AddNorm(const Coord3& n);
     void AddFace(const std::vector<FaceVertex>& face);
 
 private:
