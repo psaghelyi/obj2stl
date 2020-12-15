@@ -6,6 +6,7 @@
 #include <exception>
 #include <sstream>
 #include <vector>
+#include <cstring>
 
 static bool verbose_flag = false;
 
